@@ -3,23 +3,26 @@ import useAuth from '../../Hooks/useAuth';
 import { useState } from 'react';
 
 const Login = () => {
-    const {loginUser}= useAuth();
+    const { loginUser } = useAuth();
     //state for login error
-    const [loginError, setLoginError]= useState('');
+    const [loginError, setLoginError] = useState('');
 
-    const handleLogin= event=>{
+    const handleLogin = event => {
         event.preventDefault();
-        const form= event.target; 
-        const email= form.email.value;
-        const password= form.password.value;
-        
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        //Resetting Login error 
+        setLoginError('');
+
         loginUser(email, password)
-        .then(result=>{
-            console.log(result.user);
-        })
-        .catch(error=>{
-            setLoginError(error.message);
-        })
+            .then(result => {
+                console.log(result.user);
+            })
+            .catch(error => {
+                setLoginError(error.message);
+            })
     }
     return (
         <div>
