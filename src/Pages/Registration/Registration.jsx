@@ -3,7 +3,7 @@ import useAuth from '../../Hooks/useAuth';
 
 
 const Registration = () => {
-    const {user, createUser}= useAuth();
+    const {setUser, user, createUser, updateUser}= useAuth();
 
     const handleRegistration = event => {
         event.preventDefault();        
@@ -14,9 +14,22 @@ const Registration = () => {
         const photo= form.photo.value;
 
         createUser(email, password)
-        .then(result=> console.log(result.user))
+        .then(result=> {
+            if(result.user.email){
+                updateUser(name, photo)
+                .then(()=>{
+                    //  console.log('User Created and Profile updated');
+                    //  console.log(result.user.displayName, result.user.photoURL);
+                     setUser(result.user);
+                     //console.log(user);
+                })
+                .catch(error=>{
+                    console.log(error.message);
+                })
+            }
+        })
         .catch(error=>{
-            console.log(error);
+            console.log(error.message);
         })
 
     }
