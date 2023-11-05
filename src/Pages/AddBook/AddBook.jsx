@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Rating from 'react-rating';
+import { BookContext } from "../../Providers/BookProvider";
 
 
 const AddBook = () => {
+    //loading book categories context
+    const { categories } = useContext(BookContext);
+    //handle change book category
+    const [category, setCategory]= useState('')
+    const handleCategory=(e)=>{
+        setCategory(e.target.value);
+    }
+
     const { control, handleSubmit } = useForm();
     //for managing Rating
     const [rating, setRating] = useState(0);
@@ -11,7 +20,7 @@ const AddBook = () => {
         setRating(value);
     }
     const onSubmit = data => {
-        console.log(rating);
+        console.log(data);
     }
     return (
         <div className="hero min-h-screen bg-base-200">
@@ -77,10 +86,20 @@ const AddBook = () => {
                             name="category"
                             defaultValue=""
                             control={control}
-                            render={({ field }) => <input
-                                className="input input-bordered"
-                                placeholder="category"
-                                {...field} />}
+                            // render={({ field }) => <input
+                            //     className="input input-bordered"
+                            //     placeholder="category"
+                            //     {...field} />}
+                            render={({ field }) => <div>
+                                <select className="form-control border-none" onChange={handleCategory} {...field}>
+                                    <option value="" {...field}>Select Category</option>
+                                    {
+                                        categories.map(category => <option key={category._id} value={category.categoryName}>{category.categoryName}</option>)
+                                    }
+                                </select>
+                            </div>
+                            }
+
                         />
                     </div>
                     {/* Short Description */}
@@ -115,7 +134,7 @@ const AddBook = () => {
 
                     </div> */}
                     <div>
-                    <Rating value={rating} onChange={handleRatingChange} />
+                        {/* <Rating value={rating} onChange={handleRatingChange} /> */}
                     </div>
                     <div className="mx-auto grid justify-center">
                         <button className="btn btn-primary" type="submit">Add Book</button>
