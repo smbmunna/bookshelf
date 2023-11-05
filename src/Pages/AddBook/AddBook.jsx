@@ -1,26 +1,44 @@
 import { useContext, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import Rating from 'react-rating';
+//import Rating from 'react-rating';
+import ReactStarsRating from 'react-awesome-stars-rating';
+//import { Rating } from 'react-simple-star-rating'
+
 import { BookContext } from "../../Providers/BookProvider";
+import axios from "axios";
 
 
 const AddBook = () => {
     //loading book categories context
     const { categories } = useContext(BookContext);
     //handle change book category
-    const [category, setCategory]= useState('')
-    const handleCategory=(e)=>{
+    const [category, setCategory] = useState('')
+    const handleCategory = (e) => {
         setCategory(e.target.value);
     }
 
     const { control, handleSubmit } = useForm();
     //for managing Rating
-    const [rating, setRating] = useState(0);
-    const handleRatingChange = value => {
-        setRating(value);
-    }
+    // const [rating, setRating] = useState(0);
+    // const handleRatingChange = value => {
+    //     setRating(value);
+    // }
+    // const onChange = () => {
+        //console.log(`React Stars Rating value is ${value}`);
+    //};
+
+    // const ReactStarsExample = ({ value }) => {
+    //     return <ReactStarsRating onChange={onChange} value={value} />;
+    // };
+
+
+
     const onSubmit = data => {
-        console.log(data);
+        axios({
+            method:'post', 
+            url: 'http://localhost:5000/addBook',
+            data: data
+        })
     }
     return (
         <div className="hero min-h-screen bg-base-200">
@@ -86,10 +104,6 @@ const AddBook = () => {
                             name="category"
                             defaultValue=""
                             control={control}
-                            // render={({ field }) => <input
-                            //     className="input input-bordered"
-                            //     placeholder="category"
-                            //     {...field} />}
                             render={({ field }) => <div>
                                 <select className="form-control border-none" onChange={handleCategory} {...field}>
                                     <option value="" {...field}>Select Category</option>
@@ -133,9 +147,31 @@ const AddBook = () => {
                         />
 
                     </div> */}
+                    {/* <div>
+                        <Rating value={rating} onChange={handleRatingChange} />
+                    </div> */}
                     <div>
-                        {/* <Rating value={rating} onChange={handleRatingChange} /> */}
+                        {/* <ReactStarsRating onChange={onChange} value={value} />; */}
+                        <Controller
+                            name="rating"
+                            defaultValue=""
+                            control={control}
+                            render={({ field }) =>
+                                <ReactStarsRating  {...field} />
+                            }
+                        />
                     </div>
+                    {/* <Controller
+                            name="rating"
+                            defaultValue=""
+                            control={control}
+                            render={({ field })=>
+                            <Rating  {...field}/>
+                            }
+                        /> */}
+
+                    {/* </div> */}
+
                     <div className="mx-auto grid justify-center">
                         <button className="btn btn-primary" type="submit">Add Book</button>
                     </div>
