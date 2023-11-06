@@ -48,8 +48,9 @@ const BookDetails = () => {
                 <p><span className="font-bold mr-2">Battery:</span></p>
                 <button
                     className="btn btn-primary bg-[#2c2c2c91] rounded-none  mt-8"
+                    disabled={quantity==0 ? true : false}
                     onClick={() => document.getElementById('my_modal_5').showModal()}
-                >open modal
+                >Borrow Book
                 </button>
                 <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
                     <div className="modal-box">
@@ -69,13 +70,13 @@ const BookDetails = () => {
                                 <br />
                                 <button
                                     //onClick={handleAddToCart}
-                                    className="btn">Close</button>
+                                    className="btn">Borrow Book</button>
                             </form>
                         </div>
                     </div>
                 </dialog>
             </div>
-            <Link to='/myCart' className="btn btn-primary bg-[#2c2c2c91] rounded-none mt-4 ">My Cart</Link>
+            <Link to='/myCart' className="btn btn-primary bg-[#2c2c2c91] rounded-none mt-4 ">My Borrowed Books</Link>
         </div >
     );
 };
