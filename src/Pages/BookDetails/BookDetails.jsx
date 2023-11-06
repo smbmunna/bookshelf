@@ -16,11 +16,18 @@ const BookDetails = () => {
         const returnDate= form.return_date.value;
 
         axios.post('http://localhost:5000/addToCart',{
-            name,
+            bookName: name,
             email, 
+            bookID: _id, 
             returnDate
         })
-        .then(res=>console.log(res))
+        .then(res=>{
+            if(res.data.insertedId){
+                axios.patch(`http://localhost:5000/updateStock/${_id}`,{
+                    quantity: quantity-1
+                })
+            }
+        })
         .catch(error=>console.log(error))
     }
 
