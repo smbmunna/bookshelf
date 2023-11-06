@@ -6,7 +6,7 @@ const Navbar = () => {
         <Link className="btn btn-ghost" to="/addBook">Add Book</Link>
         <Link className="btn btn-ghost" to="/addCategory">Add Category</Link>
         <Link className="btn btn-ghost" to="/">All Books</Link>
-        <Link className="btn btn-ghost" to="/">Borrowed Books</Link>
+        <Link className="btn btn-ghost" to="/borrowedBooks">Borrowed Books</Link>
         <Link className="btn btn-ghost" to="/login">Login</Link>
         <Link className="btn btn-ghost" to="/registration">Registration</Link>
         

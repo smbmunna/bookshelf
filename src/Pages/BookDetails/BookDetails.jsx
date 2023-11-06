@@ -76,7 +76,7 @@ const BookDetails = () => {
                     </div>
                 </dialog>
             </div>
-            <Link to='/myCart' className="btn btn-primary bg-[#2c2c2c91] rounded-none mt-4 ">My Borrowed Books</Link>
+            <Link to={`/borrowedBooks`} className="btn btn-primary bg-[#2c2c2c91] rounded-none mt-4 ">My Borrowed Books</Link>
         </div >
     );
 };

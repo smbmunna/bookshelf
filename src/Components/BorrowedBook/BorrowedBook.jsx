@@ -1,5 +1,6 @@
-import {Link} from 'react-router-dom';
-const Book = ({book}) => {
+import {Link} from 'react-router-dom'
+
+const BorrowedBook = ({book}) => {
     const {_id, bookName, image, quantity, author, category, sdescription,rating}=book;    
     return (
         <div>
@@ -11,7 +12,7 @@ const Book = ({book}) => {
                     <h2 className="card-title">{bookName}</h2>
                     <p>{sdescription}</p>
                     <div className="card-actions">
-                        <Link to={`/book/${_id}`} className="btn btn-primary">Details</Link>
+                        <Link to={`/book/${_id}`} className="btn btn-primary">Return</Link>
                     </div>
                 </div>
             </div>
@@ -19,4 +20,4 @@ const Book = ({book}) => {
     );
 };
 
-export default Book;
+export default BorrowedBook;
