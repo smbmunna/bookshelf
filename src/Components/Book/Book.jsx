@@ -1,7 +1,6 @@
 import {Link} from 'react-router-dom';
 const Book = ({book}) => {
-    const {_id, name, image, quantity, author, category, sdescription,rating}=book;
-    console.log(book);
+    const {_id, name, image, quantity, author, category, sdescription,rating}=book;    
     return (
         <div>
             <div className="card w-72 bg-base-100 shadow-xl">
