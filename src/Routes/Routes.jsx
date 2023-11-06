@@ -5,6 +5,7 @@ import Login from "../Pages/Login/Login";
 import Registration from "../Pages/Registration/Registration";
 import AddBook from "../Pages/AddBook/AddBook";
 import AddCategory from "../Pages/AddCategory/AddCategory";
+import Books from "../Pages/Books/Books";
 
   const router = createBrowserRouter([
     {
@@ -30,6 +31,11 @@ import AddCategory from "../Pages/AddCategory/AddCategory";
         {
           path:'/addCategory',
           element: <AddCategory/>
+        },
+        {
+          path:'/books/category/:category',
+          element: <Books/>,
+          loader: ({params})=>fetch(`http://localhost:5000/books/category/${params.category}`)
         }
         
       ]
