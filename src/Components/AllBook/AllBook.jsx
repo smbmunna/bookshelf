@@ -12,7 +12,7 @@ const AllBook = ({ book }) => {
                     <h2 className="card-title">{bookName}</h2>
                     <p>{sdescription}</p>
                     <div className="card-actions">
-                        <Link to={`/book/${_id}`} className="btn btn-primary">Update</Link>
+                        <Link to={`/updateBook/${_id}`} className="btn btn-primary">Update</Link>
                     </div>
                 </div>
             </div>
