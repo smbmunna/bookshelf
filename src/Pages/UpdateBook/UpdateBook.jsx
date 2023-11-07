@@ -7,20 +7,24 @@ import { BookContext } from "../../Providers/BookProvider";
 const UpdateBook = () => {
     const book = useLoaderData();
 
-    const { _id, name, image, quantity, author, sdescription, rating } = book;
-    console.log('rating',rating)
+    const { _id, name, image,category, quantity, author, sdescription, rating } = book;
+    //const [category, setCategory] = useState(category)
+    // const handleCategory = (e) => {
+    //     setCategory(e.target.value);
+    // }
+    console.log('rating', rating)
     //loading book categories context
     const { categories } = useContext(BookContext);
-    const { control, handleSubmit } = useForm();
-    const [category, setCategory] = useState('')
-    const handleCategory = (e) => {
-        setCategory(e.target.value);
-    }
+    const { control, handleSubmit } = useForm({
+        defaultValues: {
+            category: category,
+        }
+    });
+    
     const onSubmit = data => {
-        console.log(data);
-        axios.put(`http://localhost:5000/updateBook/${_id}`,data)
-        .then(res=>console.log(res))
-        .catch(error=>console.log(error))
+         axios.put(`http://localhost:5000/updateBook/${_id}`, data)
+             .then(res => console.log(res))
+             .catch(error => console.log(error))
     }
 
     return (
@@ -88,11 +92,11 @@ const UpdateBook = () => {
                             <label className="block text-gray-600">Category: </label>
                             <Controller
                                 name="category"
-                                defaultValue={category}
                                 control={control}
                                 render={({ field }) => <div>
-                                    <select className="form-control border-none" onChange={handleCategory} {...field}>
-                                        <option value="" {...field}>Select Category</option>
+                                    {/* <select className="form-control border-none" onChange={handleCategory} {...field}> */}
+                                    <select className="form-control border-none"  {...field}>
+                                        <option value="" >Select Category</option>
                                         {
                                             categories.map(category => <option key={category._id} value={category.categoryName}>{category.categoryName}</option>)
                                         }
