@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../firebase/firebase.config";
+import axios from "axios";
 
 export const AuthContext = createContext();
 
@@ -11,10 +12,16 @@ const AuthProvider = ({ children }) => {
     
     //current user change observer 
     useEffect(()=>{
-        const unsubscirbe =  onAuthStateChanged(auth, currentUser=>{
-            
-            if(currentUser){
-                setUser(currentUser)                
+        const unsubscirbe =  onAuthStateChanged(auth, currentUser=>{            
+            setUser(currentUser)                
+            if(currentUser){                
+                const loggedInUser= {email: currentUser?.email};
+                axios.post('http://localhost:5000/jwt', loggedInUser, {
+                    withCredentials: true
+                })
+                .then(res=>{
+                    console.log('Token response from server:', res.data);
+                })
                 setLoading(false);
                 console.log(currentUser);
                 
