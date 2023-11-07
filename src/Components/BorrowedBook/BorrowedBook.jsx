@@ -1,19 +1,19 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import {Link} from 'react-router-dom'
-
+import useAuth from '../../Hooks/useAuth';
 const BorrowedBook = ({book}) => {
-    const {_id, bookName, image, author, category, sdescription,rating}=book;    
+    const {user}= useAuth();
+    
+    const {_id, bookName, image,bookID, author, category, sdescription,rating}=book;    
+    // console.log(user.email);
+    // console.log(bookID);
+    
     
  
     // return book
-    const handleReturn=()=>{
-        //increase book stock by 1
-        axios.patch(`http://localhost:5000/updateStock/${_id}`,{
-            //quantity: quantity+1
-        })
+    const handleReturn=(email, bookID)=>{
+        axios.delete(`http://localhost:5000/delete/cart/${email}/${bookID}`)
         .then(res=>console.log(res.data))
-        .catch(error=>console.log(error))
+                
     }
     return (
         <div>
@@ -26,7 +26,7 @@ const BorrowedBook = ({book}) => {
                     <p>{sdescription}</p>
                     <div className="card-actions">
                         {/* <Link to={`/book/${_id}`} className="btn btn-primary">Return</Link> */}
-                        <button onClick={handleReturn} className="btn btn-primary">Return</button>
+                        <button onClick={()=>handleReturn(user.email, bookID)} className="btn btn-primary">Return</button>
                     </div>
                 </div>
             </div>
