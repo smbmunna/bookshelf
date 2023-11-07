@@ -13,7 +13,8 @@ const AuthProvider = ({ children }) => {
     //current user change observer 
     useEffect(()=>{
         const unsubscirbe =  onAuthStateChanged(auth, currentUser=>{            
-            setUser(currentUser)                
+            setUser(currentUser);
+            setLoading(false);
             if(currentUser){                
                 const loggedInUser= {email: currentUser?.email};
                 axios.post('http://localhost:5000/jwt', loggedInUser, {
@@ -60,7 +61,7 @@ const AuthProvider = ({ children }) => {
         createUser,
         updateUser,
         loginUser,
-        setLoading,
+        loading,
     }
     return (
         <AuthContext.Provider value={authInfo}>

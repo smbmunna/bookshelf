@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 import { useState } from 'react';
 
@@ -6,6 +6,10 @@ const Login = () => {
     const { loginUser } = useAuth();
     //state for login error
     const [loginError, setLoginError] = useState('');
+
+    //for redirecting user to desired path
+    const location= useLocation();
+    const navigate= useNavigate();
 
     const handleLogin = event => {
         event.preventDefault();
@@ -17,8 +21,9 @@ const Login = () => {
         setLoginError('');
 
         loginUser(email, password)
-            .then(result => {
-                console.log(result.user);
+            .then(() => {
+                //console.log(result.user);
+                navigate(location.state ? location.state :'/')
             })
             .catch(error => {
                 setLoginError(error.message);
