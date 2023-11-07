@@ -8,6 +8,7 @@ const UpdateBook = () => {
     const book = useLoaderData();
 
     const { _id, name, image, quantity, author, sdescription, rating } = book;
+    console.log('rating',rating)
     //loading book categories context
     const { categories } = useContext(BookContext);
     const { control, handleSubmit } = useForm();
@@ -16,11 +17,10 @@ const UpdateBook = () => {
         setCategory(e.target.value);
     }
     const onSubmit = data => {
-        axios({
-            method: 'post',
-            url: 'http://localhost:5000/addBook',
-            data: data
-        })
+        console.log(data);
+        axios.put(`http://localhost:5000/updateBook/${_id}`,data)
+        .then(res=>console.log(res))
+        .catch(error=>console.log(error))
     }
 
     return (
@@ -36,7 +36,7 @@ const UpdateBook = () => {
                             <label className="block text-gray-600">Book Name: </label>
                             <Controller
                                 name="name"
-                                defaultValue=""
+                                defaultValue={name}
                                 control={control}
                                 render={({ field }) => <input
                                     className="input input-bordered"
@@ -49,7 +49,7 @@ const UpdateBook = () => {
                             <label className="block text-gray-600">Image: </label>
                             <Controller
                                 name="image"
-                                defaultValue=""
+                                defaultValue={image}
                                 control={control}
                                 render={({ field }) => <input
                                     className="input input-bordered"
@@ -62,7 +62,7 @@ const UpdateBook = () => {
                             <label className="block text-gray-600">Quantity: </label>
                             <Controller
                                 name="quantity"
-                                defaultValue=""
+                                defaultValue={quantity}
                                 control={control}
                                 render={({ field }) => <input
                                     className="input input-bordered"
@@ -75,7 +75,7 @@ const UpdateBook = () => {
                             <label className="block text-gray-600">Author: </label>
                             <Controller
                                 name="author"
-                                defaultValue=""
+                                defaultValue={author}
                                 control={control}
                                 render={({ field }) => <input
                                     className="input input-bordered"
@@ -88,7 +88,7 @@ const UpdateBook = () => {
                             <label className="block text-gray-600">Category: </label>
                             <Controller
                                 name="category"
-                                defaultValue=""
+                                defaultValue={category}
                                 control={control}
                                 render={({ field }) => <div>
                                     <select className="form-control border-none" onChange={handleCategory} {...field}>
@@ -107,7 +107,7 @@ const UpdateBook = () => {
                             <label className="block text-gray-600">Short Description: </label>
                             <Controller
                                 name="sdescription"
-                                defaultValue=""
+                                defaultValue={sdescription}
                                 control={control}
                                 render={({ field }) => <input
                                     className="input input-bordered"
@@ -140,7 +140,7 @@ const UpdateBook = () => {
                             {/* <ReactStarsRating onChange={onChange} value={value} />; */}
                             <Controller
                                 name="rating"
-                                defaultValue=""
+                                defaultValue={rating}
                                 control={control}
                                 render={({ field }) =>
                                     <ReactStarsRating  {...field} />
@@ -159,7 +159,7 @@ const UpdateBook = () => {
                         {/* </div> */}
 
                         <div className="mx-auto grid justify-center">
-                            <button className="btn btn-primary" type="submit">Add Book</button>
+                            <button className="btn btn-primary" type="submit">Update</button>
                         </div>
                     </div>
                 </form>
