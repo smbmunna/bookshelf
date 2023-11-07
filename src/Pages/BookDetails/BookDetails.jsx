@@ -1,33 +1,60 @@
 import { Link, useLoaderData } from "react-router-dom";
 import useAuth from '../../Hooks/useAuth';
 import axios from "axios";
+import { useEffect, useState } from "react";
 const BookDetails = () => {
     const book = useLoaderData();
     //loading user from context
-    const {user}= useAuth();   
-
+    const { user } = useAuth();
     const { _id, name, image, quantity, author, category, sdescription, rating } = book;
+
+    //setting previous borrowed books in a state
+    const [previousBorrowedBooks, setPreviousBorrowedBooks] = useState([]);
+    //check cart for the book (if book already exists or not)
+    useEffect(() => {
+        axios.get(`http://localhost:5000/borrowedBooks?email=${user.email}`)
+            .then(res => setPreviousBorrowedBooks(res.data))        
+    }, [])
+    
+
     const handleAddToCart = (e) => {
         //getting form data
         e.preventDefault();
-        const form= e.target; 
-        const email= form.email.value;
-        const returnDate= form.return_date.value;
+        const form = e.target;
+        const email = form.email.value;
+        const returnDate = form.return_date.value;
+        const borrower = form.name.value;
 
-        axios.post('http://localhost:5000/addToCart',{
-            bookName: name,
-            email, 
-            bookID: _id, 
-            returnDate
-        })
-        .then(res=>{
-            if(res.data.insertedId){
-                axios.patch(`http://localhost:5000/updateStock/${_id}`,{
-                    quantity: quantity-1
-                })
+        //check if his previousborrowed books has this book
+        let bookMatched=false; 
+        previousBorrowedBooks.forEach(borowedBook=>{
+            if(borowedBook.bookID == _id && borowedBook.email == user?.email){
+                bookMatched=true;
             }
         })
-        .catch(error=>console.log(error))
+        
+        if(bookMatched){
+            console.log('You have already borrowed this book');
+            return;
+        }
+
+
+        axios.post('http://localhost:5000/addToCart', {
+            bookName: name,
+            email,
+            bookID: _id,
+            returnDate,
+            borrower
+
+        })
+            .then(res => {
+                if (res.data.insertedId) {
+                    axios.patch(`http://localhost:5000/updateStock/${_id}`, {
+                        quantity: quantity - 1
+                    })
+                }
+            })
+            .catch(error => console.log(error))
     }
 
     return (
@@ -47,7 +74,7 @@ const BookDetails = () => {
                 <p><span className="font-bold mr-2">Battery:</span></p>
                 <button
                     className="btn btn-primary bg-[#2c2c2c91] rounded-none  mt-8"
-                    disabled={quantity==0 ? true : false}
+                    disabled={quantity == 0 ? true : false}
                     onClick={() => document.getElementById('my_modal_5').showModal()}
                 >Borrow Book
                 </button>
@@ -59,12 +86,12 @@ const BookDetails = () => {
                             <form onSubmit={handleAddToCart} method="dialog">
                                 {/* if there is a button in form, it will close the modal */}
                                 <div>
-                                    <input defaultValue={user?.displayName} className="input input-bordered" required type="text" name="name" placeholder="Full Name" />                                    
+                                    <input defaultValue={user?.displayName} className="input input-bordered" required type="text" name="name" placeholder="Full Name" />
                                     <input defaultValue={user?.email} className="input input-bordered" required type="email" name="email" placeholder="Email" />
                                     <label className="label">
                                         <span className="label-text">Return Date</span>
                                     </label>
-                                    <input className="input input-bordered"  required type="date" name="return_date" placeholder="Return Date" />
+                                    <input className="input input-bordered" required type="date" name="return_date" placeholder="Return Date" />
                                 </div>
                                 <br />
                                 <button

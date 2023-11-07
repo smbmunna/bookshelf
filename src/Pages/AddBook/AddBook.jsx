@@ -9,6 +9,7 @@ import axios from "axios";
 
 
 const AddBook = () => {
+
     //loading book categories context
     const { categories } = useContext(BookContext);
     //handle change book category
@@ -24,7 +25,7 @@ const AddBook = () => {
     //     setRating(value);
     // }
     // const onChange = () => {
-        //console.log(`React Stars Rating value is ${value}`);
+    //console.log(`React Stars Rating value is ${value}`);
     //};
 
     // const ReactStarsExample = ({ value }) => {
@@ -35,7 +36,7 @@ const AddBook = () => {
 
     const onSubmit = data => {
         axios({
-            method:'post', 
+            method: 'post',
             url: 'http://localhost:5000/addBook',
             data: data
         })
