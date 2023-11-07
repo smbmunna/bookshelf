@@ -4,8 +4,7 @@ import axios from "axios";
 const BookDetails = () => {
     const book = useLoaderData();
     //loading user from context
-    const {user}= useAuth();
-    console.log(user);
+    const {user}= useAuth();   
 
     const { _id, name, image, quantity, author, category, sdescription, rating } = book;
     const handleAddToCart = (e) => {
@@ -35,7 +34,7 @@ const BookDetails = () => {
         // <div className="lg:grid lg:grid-cols-2 w-3/4 lg:w-1/2 mx-auto gap-10 items-center justify-between mt-20">
         <div className="lg:grid lg:grid-cols-2 w-3/4 lg:w-1/2 mx-auto gap-10 items-center justify-between mt-20">
             <div>
-                {/* <img src={} alt="" /> */}
+                <img src={image} alt="" />
             </div>
             <div className="text-black">
                 <h1 className="text-3xl font-bold">{name}</h1>
@@ -60,8 +59,8 @@ const BookDetails = () => {
                             <form onSubmit={handleAddToCart} method="dialog">
                                 {/* if there is a button in form, it will close the modal */}
                                 <div>
-                                    <input defaultValue={user.displayName} className="input input-bordered" required type="text" name="name" placeholder="Full Name" />                                    
-                                    <input defaultValue={user.email} className="input input-bordered" required type="email" name="email" placeholder="Email" />
+                                    <input defaultValue={user?.displayName} className="input input-bordered" required type="text" name="name" placeholder="Full Name" />                                    
+                                    <input defaultValue={user?.email} className="input input-bordered" required type="email" name="email" placeholder="Email" />
                                     <label className="label">
                                         <span className="label-text">Return Date</span>
                                     </label>
@@ -76,7 +75,7 @@ const BookDetails = () => {
                     </div>
                 </dialog>
             </div>
-            <Link to={`/borrowedBooks`} className="btn btn-primary bg-[#2c2c2c91] rounded-none mt-4 ">My Borrowed Books</Link>
+            <Link to={`/readBook/${_id}`} className="btn btn-primary bg-[#2c2c2c91] rounded-none mt-4 ">Read this Book</Link>
         </div >
     );
 };
