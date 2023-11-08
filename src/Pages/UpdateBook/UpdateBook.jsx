@@ -4,10 +4,11 @@ import { useLoaderData } from "react-router-dom";
 import ReactStarsRating from 'react-awesome-stars-rating';
 import { useContext, useState } from "react";
 import { BookContext } from "../../Providers/BookProvider";
+import Swal from 'sweetalert2'
 const UpdateBook = () => {
     const book = useLoaderData();
 
-    const { _id, name, image,category, quantity, author, sdescription, rating } = book;
+    const { _id, name, image, category, quantity, author, sdescription, rating } = book;
     //const [category, setCategory] = useState(category)
     // const handleCategory = (e) => {
     //     setCategory(e.target.value);
@@ -20,11 +21,19 @@ const UpdateBook = () => {
             category: category,
         }
     });
-    
+
     const onSubmit = data => {
-         axios.put(`https://bookshelf-server-henna.vercel.app/updateBook/${_id}`, data)
-             .then(res => console.log(res))
-             .catch(error => console.log(error))
+        axios.put(`https://bookshelf-server-henna.vercel.app/updateBook/${_id}`, data)
+            .then(res => {
+                if (res.data.modifiedCount > 0) {
+                    Swal.fire({
+                        title: "Good job!",
+                        text: "Book Info Updated!",
+                        icon: "success"
+                    });
+                }
+            })
+            .catch(error => console.log(error))
     }
 
     return (
