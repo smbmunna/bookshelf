@@ -5,7 +5,7 @@ const HomeBook = ({book}) => {
     const {_id, name, image, sdescription}= book; 
     return (
         <div>
-            <div className="card w-full h-3/4 bg-base-100 shadow-xl rounded-none bg-[#2c2c2c91] dark:bg-gray-300 flex mb-6 mx-auto relative">
+            <div className="card w-full h-[450px] bg-base-100 shadow-xl rounded-none bg-[#2c2c2c91] dark:bg-gray-300 flex mx-auto">
                 <figure>
                     <img src={image} alt="Shoes" />
                 </figure>
