@@ -63,23 +63,17 @@ const BookDetails = () => {
             image,
             category,
 
-        })        
+        })
             .then(res => {
                 if (res.data.insertedId) {
                     axios.patch(`https://bookshelf-server-henna.vercel.app/updateStock/${_id}`, {
                         quantity: quantity - 1
                     })
-                        .then(res2 => {
-                            //show alert
-                            Swal.fire({
-                                title: "Good job!",
-                                text: "You have successfully borrowed the book!",
-                                icon: "success"
-                            });
-                        })
-                        .catch(error => {
-                            console.log(error);
-                        })
+                    Swal.fire({
+                        title: "Good job!",
+                        text: "You have successfully borrowed the book!",
+                        icon: "success"
+                    });
 
                 }
             })
