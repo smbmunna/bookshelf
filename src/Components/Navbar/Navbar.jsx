@@ -22,8 +22,8 @@ const Navbar = () => {
         {
             !user &&
             <>
-                <Link className="btn btn-ghost" to="/login">Login</Link>
-                <Link className="btn btn-ghost" to="/registration">Registration</Link>
+                <Link className="btn btn-ghost text-white dark:text-black" to="/login">Login</Link>
+                <Link className="btn btn-ghost text-white dark:text-black" to="/registration">Registration</Link>
             </>
         }
     </>
