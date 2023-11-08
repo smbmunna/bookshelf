@@ -24,7 +24,7 @@ const AllBooks = () => {
 
     }
     return (
-        <div className=" max-w-screen-xl mx-auto my-8 ">
+        <div className=" md:max-w-screen-xl mx-8 md:mx-auto my-8 ">
             <h1 className="text-3xl font-bold text-center">List of all available Books {allBooks.length}</h1>
             <div className="grid">
                 <button onClick={handleFilter} className="mx-auto btn text-white rounded-none bg-orange-500 my-4">Show Only Available Books</button>

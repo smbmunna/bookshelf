@@ -9,8 +9,11 @@ const BookDetails = () => {
     //loading user from context
     const { user } = useAuth();
     const { _id, name, image, quantity, author, category, sdescription, rating } = book;
-
-
+    //state for modal
+    const [openModal, setOpenModal] = useState(false);
+    //get the current date
+    const currentDate = new Date().toISOString().split('T')[0];
+    //console.log(currentDate);
 
     //setting previous borrowed books in a state
     const [previousBorrowedBooks, setPreviousBorrowedBooks] = useState([]);
@@ -27,7 +30,10 @@ const BookDetails = () => {
         const form = e.target;
         const email = form.email.value;
         const returnDate = form.return_date.value;
+        const borrowingDate = form.borrowing_date.value;
         const borrower = form.name.value;
+
+        console.log(borrowingDate);
 
         //check if his previousborrowed books has this book
         let bookMatched = false;
@@ -45,27 +51,36 @@ const BookDetails = () => {
             });
             return;
         }
-
+        setOpenModal(false);
 
         axios.post('https://bookshelf-server-henna.vercel.app/addToCart', {
             bookName: name,
             email,
             bookID: _id,
             returnDate,
-            borrower
+            borrowingDate,
+            borrower,
+            image,
+            category,
 
-        })
+        })        
             .then(res => {
                 if (res.data.insertedId) {
                     axios.patch(`https://bookshelf-server-henna.vercel.app/updateStock/${_id}`, {
                         quantity: quantity - 1
                     })
-                    //show alert
-                    Swal.fire({
-                        title: "Good job!",
-                        text: "You have successfully borrowed the book!",
-                        icon: "success"
-                    });
+                        .then(res2 => {
+                            //show alert
+                            Swal.fire({
+                                title: "Good job!",
+                                text: "You have successfully borrowed the book!",
+                                icon: "success"
+                            });
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
+
                 }
             })
             .catch(error => console.log(error))
@@ -87,18 +102,21 @@ const BookDetails = () => {
                     starDimension="20px"
                     starSpacing="8px"
                 />
-                
+
 
 
                 <p className="my-2 text-xl"><span className="font-bold text-xl mr-2">Short Description:</span>{sdescription} </p>
                 <button
                     className="btn text-white rounded-none bg-orange-500 mt-8"
                     disabled={quantity == 0 ? true : false}
-                    onClick={() => document?.getElementById('my_modal_5').showModal()}
+                    onClick={() => {
+                        //document?.getElementById('my_modal_5').showModal()
+                        setOpenModal(true);
+                    }}
 
                 >Borrow Book
                 </button>
-                <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+                <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle" open={openModal}>
                     <div className="modal-box">
                         <h3 className="font-bold text-lg">Please Enter the Following Information</h3>
                         {/* <p className="py-4">Press ESC key or click the button below to close</p> */}
@@ -112,6 +130,10 @@ const BookDetails = () => {
                                         <span className="label-text">Return Date</span>
                                     </label>
                                     <input className="input input-bordered" required type="date" name="return_date" placeholder="Return Date" />
+                                    <label className="label">
+                                        <span className="label-text">Borrowing Date</span>
+                                    </label>
+                                    <input className="input input-bordered" value={currentDate} readOnly type="date" name="borrowing_date" placeholder="Return Date" />
                                 </div>
                                 <button
                                     className=" my-8 btn text-white rounded-none bg-orange-500">Borrow Book</button>
