@@ -6,6 +6,7 @@ import ReactStarsRating from 'react-awesome-stars-rating';
 
 import { BookContext } from "../../Providers/BookProvider";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 
 const AddBook = () => {
@@ -40,6 +41,15 @@ const AddBook = () => {
             url: 'https://bookshelf-server-henna.vercel.app/addBook',
             data: data
         })
+            .then(res => {
+                if (res.data.insertedId !== "") {
+                    Swal.fire({
+                        title: "Good job!",
+                        text: "Book Added Successfully!",
+                        icon: "success"
+                    });
+                }
+            })
     }
     return (
         <div className="hero min-h-screen bg-base-200">
