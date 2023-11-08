@@ -7,10 +7,10 @@ import ReactStarsRating from 'react-awesome-stars-rating';
 import { BookContext } from "../../Providers/BookProvider";
 import axios from "axios";
 import Swal from "sweetalert2";
-
+import useAuth from '../../Hooks/useAuth';
 
 const AddBook = () => {
-
+    const { user } = useAuth();
     //loading book categories context
     const { categories } = useContext(BookContext);
     //handle change book category
@@ -36,11 +36,12 @@ const AddBook = () => {
 
 
     const onSubmit = data => {
-        axios({
-            method: 'post',
-            url: 'https://bookshelf-server-henna.vercel.app/addBook',
-            data: data
-        })
+        // axios({
+        //     method: 'post',
+        //     url: 'https://bookshelf-server-henna.vercel.app/addBook',
+        //     data: data
+        // })
+        axios.post(`https://bookshelf-server-henna.vercel.app/addBook/${user?.email}`, data, {withCredentials: true})
             .then(res => {
                 if (res.data.insertedId !== "") {
                     Swal.fire({

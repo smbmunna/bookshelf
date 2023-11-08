@@ -5,8 +5,10 @@ import Categories from "../../Components/Categories/Categories";
 const Home = () => {
     return (
         <div>
-            {/* <Banner/> */}
-            <Categories/>
+            <Banner />
+            <div className="max-w-6xl mx-auto">
+                <Categories />
+            </div>
         </div>
     );
 };
