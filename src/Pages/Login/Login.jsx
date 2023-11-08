@@ -1,15 +1,16 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 import { useState } from 'react';
+import { FcGoogle } from 'react-icons/fc';
 
 const Login = () => {
-    const { loginUser } = useAuth();
+    const { loginUser,googleLogin } = useAuth();
     //state for login error
     const [loginError, setLoginError] = useState('');
 
     //for redirecting user to desired path
-    const location= useLocation();
-    const navigate= useNavigate();
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const handleLogin = event => {
         event.preventDefault();
@@ -23,7 +24,18 @@ const Login = () => {
         loginUser(email, password)
             .then(() => {
                 //console.log(result.user);
-                navigate(location.state ? location.state :'/')
+                navigate(location.state ? location.state : '/')
+            })
+            .catch(error => {
+                setLoginError(error.message);
+            })
+    }
+
+    const handleGoogleLogin = () => {
+        googleLogin()
+            .then(() => {
+                //redirecting to desired page after login
+                navigate(location.state ? location.state : '/' );
             })
             .catch(error => {
                 setLoginError(error.message);
@@ -53,6 +65,13 @@ const Login = () => {
                             </div>
                             <div className="form-control mt-6">
                                 <button className="btn btn-primary">Login</button>
+                            </div>
+                            <div>
+                                <button
+                                    onClick={handleGoogleLogin}
+                                    className="btn btn-primary text-white">
+                                    <FcGoogle className="text-3xl" />  Google Login
+                                </button>
                             </div>
                             <p className='text-red-400 text-center font-bold'>
                                 {loginError}

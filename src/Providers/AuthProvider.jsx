@@ -1,10 +1,10 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile,GoogleAuthProvider,signInWithPopup } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../firebase/firebase.config";
 import axios from "axios";
 
 export const AuthContext = createContext();
-
+const googleProvider= new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
             setLoading(false);
             if(currentUser){                
                 const loggedInUser= {email: currentUser?.email};
-                axios.post('http://localhost:5000/jwt', loggedInUser, {
+                axios.post('https://bookshelf-server-henna.vercel.app/jwt', loggedInUser, {
                     withCredentials: true
                 })
                 .then(res=>{
@@ -49,10 +49,20 @@ const AuthProvider = ({ children }) => {
             photoURL: photo
         })
     }
-
+    //email login
     const loginUser= (email, password)=>{
         setLoading(true);
         return signInWithEmailAndPassword(auth, email, password)
+    }
+
+    //Google login
+    const googleLogin = () => {
+        setLoading(true);
+        return signInWithPopup(auth, googleProvider);
+    }
+
+    const logoutUser=()=>{
+        return signOut(auth);
     }
 
     const authInfo = {
@@ -62,6 +72,8 @@ const AuthProvider = ({ children }) => {
         updateUser,
         loginUser,
         loading,
+        googleLogin,
+        logoutUser
     }
     return (
         <AuthContext.Provider value={authInfo}>

@@ -12,7 +12,7 @@ const BookDetails = () => {
     const [previousBorrowedBooks, setPreviousBorrowedBooks] = useState([]);
     //check cart for the book (if book already exists or not)
     useEffect(() => {
-        axios.get(`http://localhost:5000/borrowedBooks?email=${user.email}`)
+        axios.get(`https://bookshelf-server-henna.vercel.app/borrowedBooks?email=${user.email}`)
             .then(res => setPreviousBorrowedBooks(res.data))        
     }, [])
     
@@ -39,7 +39,7 @@ const BookDetails = () => {
         }
 
 
-        axios.post('http://localhost:5000/addToCart', {
+        axios.post('https://bookshelf-server-henna.vercel.app/addToCart', {
             bookName: name,
             email,
             bookID: _id,
@@ -49,7 +49,7 @@ const BookDetails = () => {
         })
             .then(res => {
                 if (res.data.insertedId) {
-                    axios.patch(`http://localhost:5000/updateStock/${_id}`, {
+                    axios.patch(`https://bookshelf-server-henna.vercel.app/updateStock/${_id}`, {
                         quantity: quantity - 1
                     })
                 }

@@ -22,7 +22,7 @@ const UpdateBook = () => {
     });
     
     const onSubmit = data => {
-         axios.put(`http://localhost:5000/updateBook/${_id}`, data)
+         axios.put(`https://bookshelf-server-henna.vercel.app/updateBook/${_id}`, data)
              .then(res => console.log(res))
              .catch(error => console.log(error))
     }

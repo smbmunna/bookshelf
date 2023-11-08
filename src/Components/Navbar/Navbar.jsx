@@ -1,15 +1,29 @@
 import { Link } from "react-router-dom";
+import useAuth from '../../Hooks/useAuth';
 
 const Navbar = () => {
+    //read user from context
+    const { user, logoutUser } = useAuth();
     const links = <>
         <Link className="btn btn-ghost" to="/">Home</Link>
         <Link className="btn btn-ghost" to="/addBook">Add Book</Link>
         <Link className="btn btn-ghost" to="/addCategory">Add Category</Link>
         <Link className="btn btn-ghost" to="/allBooks">All Books</Link>
         <Link className="btn btn-ghost" to="/borrowedBooks">Borrowed Books</Link>
-        <Link className="btn btn-ghost" to="/login">Login</Link>
-        <Link className="btn btn-ghost" to="/registration">Registration</Link>
+        {
+            !user &&
+            <>
+                <Link className="btn btn-ghost" to="/login">Login</Link>
+                <Link className="btn btn-ghost" to="/registration">Registration</Link>
+            </>
+        }
     </>
+
+    const handleLogout = () => {
+        logoutUser()
+            .then(() => console.log('user logged out'))
+            .catch(error => { console.log(error.message) })
+    }
     return (
         <div>
             <div className="navbar bg-base-100">
@@ -30,7 +44,18 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn">Button</a>
+                    {user &&
+                        <>
+                            <img className="w-10 mr-2" src={user?.photoURL} alt="" />
+                            <span className="mr-2 text-black">{user?.displayName}</span>
+                            <Link onClick={handleLogout} className="btn btn-primary bg-[#2c2c2c91] dark:bg-slate-300 dark:text-black dark:border-none rounded-none text-white" to='/login'>Logout</Link>
+                        </>
+                    }
+
+                    {/* {
+                        theme == "dark" ? <FiMoon className="cursor-pointer text-3xl mx-2 text-black" onClick={changeTheme} /> :
+                            <FiSun className="cursor-pointer text-3xl mx-2 text-white" onClick={changeTheme} />
+                    } */}
                 </div>
             </div>
         </div>

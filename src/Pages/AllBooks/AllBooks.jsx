@@ -10,7 +10,7 @@ const AllBooks = () => {
     const [allBooks, setAllBooks] = useState([]);
 
     //load all books
-    const urlAllBooks = `http://localhost:5000/allBooks?email=${user?.email}`;    
+    const urlAllBooks = `https://bookshelf-server-henna.vercel.app/allBooks?email=${user?.email}`;    
     useEffect(() => {
         if (user && user.email) {
             axios.get(urlAllBooks, { withCredentials: true })
@@ -19,7 +19,7 @@ const AllBooks = () => {
     }, [user])
     //filter books
     const handleFilter = () => {
-        axios.get('http://localhost:5000/availableBooks')
+        axios.get('https://bookshelf-server-henna.vercel.app/availableBooks')
             .then(res => setAllBooks(res.data))
 
     }

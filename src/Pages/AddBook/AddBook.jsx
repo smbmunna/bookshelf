@@ -37,7 +37,7 @@ const AddBook = () => {
     const onSubmit = data => {
         axios({
             method: 'post',
-            url: 'http://localhost:5000/addBook',
+            url: 'https://bookshelf-server-henna.vercel.app/addBook',
             data: data
         })
     }

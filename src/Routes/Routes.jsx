@@ -41,12 +41,12 @@ const router = createBrowserRouter([
       {
         path: '/books/category/:category',
         element: <Books />,
-        loader: ({ params }) => fetch(`http://localhost:5000/books/category/${params.category}`)
+        loader: ({ params }) => fetch(`https://bookshelf-server-henna.vercel.app/books/category/${params.category}`)
       },
       {
         path: '/book/:id',
         element: <BookDetails />,
-        loader: ({ params }) => fetch(`http://localhost:5000/book/${params.id}`)
+        loader: ({ params }) => fetch(`https://bookshelf-server-henna.vercel.app/book/${params.id}`)
       },
       {
         path: '/borrowedBooks',
@@ -59,12 +59,12 @@ const router = createBrowserRouter([
       {
         path: '/updateBook/:id',
         element: <UpdateBook/>,
-        loader: ({params})=>fetch(`http://localhost:5000/book/${params.id}`)
+        loader: ({params})=>fetch(`https://bookshelf-server-henna.vercel.app/book/${params.id}`)
       },
       {
         path:'/readBook/:id',
         element:<ReadBook/>,
-        loader:({params})=>fetch(`http://localhost:5000/book/${params.id}`)
+        loader:({params})=>fetch(`https://bookshelf-server-henna.vercel.app/book/${params.id}`)
       }
     ]
   },

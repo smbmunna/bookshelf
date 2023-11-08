@@ -11,7 +11,7 @@ const BorrowedBook = ({book}) => {
  
     // return book
     const handleReturn=(email, bookID)=>{
-        axios.delete(`http://localhost:5000/delete/cart/${email}/${bookID}`)
+        axios.delete(`https://bookshelf-server-henna.vercel.app/delete/cart/${email}/${bookID}`)
         .then(res=>console.log(res.data))
                 
     }

@@ -7,7 +7,7 @@ const BookProvider = ({children}) => {
     const [categories, setCategories]= useState([]);
     //load all categories
     useEffect(()=>{
-        axios('http://localhost:5000/categories')
+        axios('https://bookshelf-server-henna.vercel.app/categories')
         .then(res=>setCategories(res.data))
     },[])
 
