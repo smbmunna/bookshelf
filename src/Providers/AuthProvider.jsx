@@ -12,8 +12,11 @@ const AuthProvider = ({ children }) => {
     
     //current user change observer 
     useEffect(()=>{
-        const unsubscirbe =  onAuthStateChanged(auth, currentUser=>{            
+        const unsubscirbe =  onAuthStateChanged(auth, currentUser=>{          
+              
             setUser(currentUser);
+            const userEmail= currentUser?.email || user?.email;
+            const loggedInUser= {email: userEmail};
             setLoading(false);
             if(currentUser){                
                 const loggedInUser= {email: currentUser?.email};
@@ -27,7 +30,12 @@ const AuthProvider = ({ children }) => {
                 console.log(currentUser);
                 
            }else{
-                console.log('User is signed out');
+            axios.post('https://bookshelf-server-henna.vercel.app/logout', loggedInUser, {
+                withCredentials: true
+            })
+            .then(res=>{
+                console.log(res.data);
+            })
             }
         })
         return ()=>{

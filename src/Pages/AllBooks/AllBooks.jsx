@@ -10,7 +10,7 @@ const AllBooks = () => {
     const [allBooks, setAllBooks] = useState([]);
 
     //load all books
-    const urlAllBooks = `https://bookshelf-server-henna.vercel.app/allBooks?email=${user?.email}`;    
+    const urlAllBooks = 'https://bookshelf-server-henna.vercel.app/allBooks';    
     useEffect(() => {
         if (user && user.email) {
             axios.get(urlAllBooks, { withCredentials: true })

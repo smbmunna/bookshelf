@@ -5,9 +5,10 @@ import ReactStarsRating from 'react-awesome-stars-rating';
 import { useContext, useState } from "react";
 import { BookContext } from "../../Providers/BookProvider";
 import Swal from 'sweetalert2'
+import useAuth from '../../Hooks/useAuth';
 const UpdateBook = () => {
     const book = useLoaderData();
-
+    const { user } = useAuth();
     const { _id, name, image, category, quantity, author, sdescription, rating } = book;
     //const [category, setCategory] = useState(category)
     // const handleCategory = (e) => {
@@ -23,7 +24,7 @@ const UpdateBook = () => {
     });
 
     const onSubmit = data => {
-        axios.put(`https://bookshelf-server-henna.vercel.app/updateBook/${_id}`, data)
+        axios.put(`https://bookshelf-server-henna.vercel.app/updateBook/${_id}/${user?.email}`, data, {withCredentials: true})
             .then(res => {
                 if (res.data.modifiedCount > 0) {
                     Swal.fire({
