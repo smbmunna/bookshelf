@@ -8,7 +8,7 @@ const Categories = () => {
 
     return (
         <div>
-            <h1 className=" text-center text-3xl font-bold my-4">All Available Categories</h1>
+            <h1 className=" text-center text-3xl font-bold my-8">All Available Categories</h1>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 {
                     categories.map(category => <Category key={category._id} category={category} />)
