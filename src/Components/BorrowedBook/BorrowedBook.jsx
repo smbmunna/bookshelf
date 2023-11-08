@@ -1,6 +1,7 @@
 import axios from 'axios';
 import useAuth from '../../Hooks/useAuth';
-const BorrowedBook = ({book}) => {
+import Swal from 'sweetalert2';
+const BorrowedBook = ({book, setBorrowedBooks, borrowedBooks}) => {
     const {user}= useAuth();
     
     const {_id, bookName, image,bookID, author, category, sdescription,rating}=book;    
@@ -12,7 +13,17 @@ const BorrowedBook = ({book}) => {
     // return book
     const handleReturn=(email, bookID)=>{
         axios.delete(`https://bookshelf-server-henna.vercel.app/delete/cart/${email}/${bookID}`)
-        .then(res=>console.log(res.data))
+        .then(res=>{
+            if(res.data.deletedCount>0){
+                Swal.fire({
+                    title: "Success!",
+                    text: "Book Returned Successfully!",
+                    icon: "success"
+                  });
+                const remainingBooks= borrowedBooks.filter(borrowedBook=> borrowedBook._id!==_id);
+                setBorrowedBooks(remainingBooks);
+            }
+        })
                 
     }
     return (

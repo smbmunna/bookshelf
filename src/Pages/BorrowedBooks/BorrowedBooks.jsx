@@ -16,7 +16,7 @@ const BorrowedBooks = () => {
             <h1>Borrowed books for: {user?.email} {borrowedBooks.length}</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {
-                    borrowedBooks.map(book=><BorrowedBook key={book._id} book={book} />)
+                    borrowedBooks.map(book=><BorrowedBook key={book._id} book={book} borrowedBooks={borrowedBooks} setBorrowedBooks={setBorrowedBooks}/>)
                 }
             </div>
         </div>
