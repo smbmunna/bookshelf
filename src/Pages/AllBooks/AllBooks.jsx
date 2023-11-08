@@ -10,7 +10,7 @@ const AllBooks = () => {
     const [allBooks, setAllBooks] = useState([]);
 
     //load all books
-    const urlAllBooks = 'https://bookshelf-server-henna.vercel.app/allBooks';    
+    const urlAllBooks = 'https://bookshelf-server-henna.vercel.app/allBooks';
     useEffect(() => {
         if (user && user.email) {
             axios.get(urlAllBooks, { withCredentials: true })
@@ -24,9 +24,11 @@ const AllBooks = () => {
 
     }
     return (
-        <div>
-            <h1>List of all Books {allBooks.length}</h1>
-            <button onClick={handleFilter} className="btn btn-primary">Filter Books</button>
+        <div className=" max-w-screen-xl mx-auto my-8 ">
+            <h1 className="text-3xl font-bold text-center">List of all available Books {allBooks.length}</h1>
+            <div className="grid">
+                <button onClick={handleFilter} className="mx-auto btn text-white rounded-none bg-orange-500 my-4">Show Only Available Books</button>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 {
                     allBooks.map(book => <AllBook key={book._id} book={book} />)

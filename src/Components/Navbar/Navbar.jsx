@@ -48,7 +48,7 @@ const Navbar = () => {
                         <>
                             <img className="w-10 mr-2" src={user?.photoURL} alt="" />
                             <span className="mr-2 text-black">{user?.displayName}</span>
-                            <Link onClick={handleLogout} className="btn btn-primary bg-[#2c2c2c91] dark:bg-slate-300 dark:text-black dark:border-none rounded-none text-white" to='/login'>Logout</Link>
+                            <Link onClick={handleLogout} className="btn btn-primary bg-[#2c2c2c91] bg-orange-500 dark:text-black border-none rounded-none text-white" >Logout</Link>
                         </>
                     }
 
