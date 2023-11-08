@@ -14,7 +14,7 @@ const ScifiCategory = () => {
     }, [])
     return (
         <div className="my-16">
-            <h1 className="font-bold text-3xl my-8 text-center">A Multiverse of Science Fiction & Fantasy Books: {scifi.length}</h1>
+            <h1 className="font-bold text-3xl my-8 text-center">A Multiverse of Science Fiction & Fantasy Books</h1>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                 {
                     scifi.map(book => <HomeBook key={book._id} book={book} />)

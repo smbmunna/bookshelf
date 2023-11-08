@@ -19,7 +19,8 @@ const Banner = () => {
             // modules={[Autoplay, Pagination, Navigation]}
             className="mySwiper"
           >
-            <SwiperSlide><img src="https://i.ibb.co/YbTg5Rs/devon-divine-Hzp-1ua8-DVE-unsplash.jpg" alt="" /></SwiperSlide>
+            <SwiperSlide><img src="https://i.ibb.co/YbTg5Rs/devon-divine-Hzp-1ua8-DVE-unsplash.jpg" alt="" />            
+            </SwiperSlide>
             {/* <SwiperSlide><img src="https://i.ibb.co/vPhzW3T/jessica-ruscello-OQSCtab-Gk-SY-unsplash.jpg" alt="" /></SwiperSlide>
             <SwiperSlide><img src="https://i.ibb.co/BLq2xjj/vnwayne-fan-lz-HYLf-NI89-A-unsplash.jpg" alt="" /></SwiperSlide> */}
           </Swiper>
