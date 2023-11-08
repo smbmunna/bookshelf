@@ -92,7 +92,7 @@ const BookDetails = () => {
             <div>
                 <img src={image} alt="" />
             </div>
-            <div className="text-black">
+            <div className="text-white dark:text-black">
                 <h1 className="text-3xl font-bold">{name}</h1>
                 <p className="mt-10">{ }</p>
                 <p className="my-2 text-xl"><span className="font-bold text-xl mr-2">Author:</span>{author} </p>
@@ -118,22 +118,22 @@ const BookDetails = () => {
                 </button>
                 <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle" open={openModal}>
                     <div className="modal-box">
-                        <h3 className="font-bold text-lg">Please Enter the Following Information</h3>
+                        <h3 className="font-bold text-lg  text-black">Please Enter the Following Information</h3>
                         {/* <p className="py-4">Press ESC key or click the button below to close</p> */}
                         <div className="modal-action">
                             <form onSubmit={handleAddToCart} >
                                 {/* if there is a button in form, it will close the modal */}
                                 <div>
-                                    <input defaultValue={user?.displayName} className="input input-bordered" required type="text" name="name" placeholder="Full Name" />
-                                    <input defaultValue={user?.email} className="input input-bordered" required type="email" name="email" placeholder="Email" />
+                                    <input defaultValue={user?.displayName} className="input input-bordered text-black" required type="text" name="name" placeholder="Full Name" />
+                                    <input defaultValue={user?.email} className="input input-bordered  text-black" required type="email" name="email" placeholder="Email" />
                                     <label className="label">
                                         <span className="label-text">Return Date</span>
                                     </label>
-                                    <input className="input input-bordered" required type="date" name="return_date" placeholder="Return Date" />
+                                    <input className="input input-bordered  text-black" required type="date" name="return_date" placeholder="Return Date" />
                                     <label className="label">
                                         <span className="label-text">Borrowing Date</span>
                                     </label>
-                                    <input className="input input-bordered" value={currentDate} readOnly type="date" name="borrowing_date" placeholder="Return Date" />
+                                    <input className="input input-bordered  text-black" value={currentDate} readOnly type="date" name="borrowing_date" placeholder="Return Date" />
                                 </div>
                                 <button
                                     className=" my-8 btn text-white rounded-none bg-orange-500">Borrow Book</button>

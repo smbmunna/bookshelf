@@ -59,7 +59,7 @@ const Registration = () => {
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                         <form onSubmit={handleRegistration} className="card-body">
-                            <h2 className='text-2xl font-semibold text-blue-700 text-center'>Register</h2>
+                            <h2 className='text-2xl font-semibold text-black-700 text-center'>Register</h2>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Name</span>
@@ -88,7 +88,7 @@ const Registration = () => {
                                 </label>
                             </div>
                             <div className="form-control mt-6">
-                                <button className="btn btn-primary">Register</button>
+                                <button className="btn text-white rounded-none bg-orange-500 mt-4 ">Register</button>
                             </div>
                             <p className='text-red-400 text-center font-bold'>
                                 {regError}

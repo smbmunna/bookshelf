@@ -5,10 +5,7 @@ const BorrowedBook = ({ book, setBorrowedBooks, borrowedBooks }) => {
     const { user } = useAuth();
 
     const { _id, bookName, image, bookID, category, borrowingDate, returnDate, quantity } = book;
-    console.log(quantity);
-    // console.log(user.email);
-    // console.log(bookID);
-
+    
 
 
     // return book
@@ -25,7 +22,7 @@ const BorrowedBook = ({ book, setBorrowedBooks, borrowedBooks }) => {
                     setBorrowedBooks(remainingBooks);
 
                     //increase quantity
-                    console.log('book quantity: ', quantity)
+                    
                     axios.patch(`https://bookshelf-server-henna.vercel.app/updateStock/return-book/${bookID}`, {
                         //quantity: quantity + 1
                     })
