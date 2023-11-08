@@ -12,11 +12,13 @@ import AllBooks from "../Pages/AllBooks/AllBooks";
 import UpdateBook from "../Pages/UpdateBook/UpdateBook";
 import ReadBook from "../Pages/ReadBook/ReadBook";
 import PrivateRoute from "./PrivateRoute";
+import NotFound from "../Pages/NotFound/NotFound";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <NotFound/>,
     children: [
       {
         path: '/',
@@ -32,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/addBook',
-        element: <AddBook />
+        element: <PrivateRoute><AddBook /></PrivateRoute>
       },
       {
         path: '/addCategory',
@@ -45,7 +47,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/book/:id',
-        element: <BookDetails />,
+        element: <PrivateRoute><BookDetails /></PrivateRoute>,
         loader: ({ params }) => fetch(`https://bookshelf-server-henna.vercel.app/book/${params.id}`)
       },
       {
@@ -58,7 +60,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/updateBook/:id',
-        element: <UpdateBook/>,
+        element: <PrivateRoute><UpdateBook/></PrivateRoute>,
         loader: ({params})=>fetch(`https://bookshelf-server-henna.vercel.app/book/${params.id}`)
       },
       {
