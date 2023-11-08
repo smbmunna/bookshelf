@@ -7,7 +7,7 @@ import { FaMobileAlt } from 'react-icons/fa';
 const FindUs = () => {
     return (
         <div>
-            <h1 className="font-bold text-3xl my-8 text-center">Come and Visit Us</h1>
+            <h1 className="font-bold text-3xl my-8 text-center  text-white dark:text-black">Come and Visit Us</h1>
             <div className="relative">
                 <Map height={300} defaultCenter={[50.879, 4.6997]} defaultZoom={11}>
                     <Marker width={50} anchor={[50.879, 4.6997]} />

@@ -10,9 +10,27 @@ const BookProvider = ({children}) => {
         axios('https://bookshelf-server-henna.vercel.app/categories')
         .then(res=>setCategories(res.data))
     },[])
+    //for theme toggle
+        //theme switch
+        const [theme, setTheme]= useState('light');
 
+        useEffect(()=>{
+            if(theme =="dark"){
+                document.documentElement.classList.add("dark");
+            }else{
+                document.documentElement.classList.remove("dark");
+            }
+        },[theme])
+    
+        const handleThemeSwitch=()=>{
+            setTheme(theme == "dark" ? "light" : "dark");
+        }
+    
     const bookInfo={
         categories,
+        handleThemeSwitch,
+        setTheme,
+        theme
     }
 
     return (

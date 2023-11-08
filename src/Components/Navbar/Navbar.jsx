@@ -1,15 +1,24 @@
 import { Link } from "react-router-dom";
 import useAuth from '../../Hooks/useAuth';
+import { FiSun, FiMoon } from 'react-icons/fi';
+import { useContext } from "react";
+import { BookContext } from "../../Providers/BookProvider";
 
 const Navbar = () => {
+    const { handleThemeSwitch, theme } = useContext(BookContext)
+    //handle switch for dark mode
+    const changeTheme = () => {
+        handleThemeSwitch();
+    }
+    
     //read user from context
     const { user, logoutUser } = useAuth();
     const links = <>
-        <Link className="btn btn-ghost" to="/">Home</Link>
-        <Link className="btn btn-ghost" to="/addBook">Add Book</Link>
-        <Link className="btn btn-ghost" to="/addCategory">Add Category</Link>
-        <Link className="btn btn-ghost" to="/allBooks">All Books</Link>
-        <Link className="btn btn-ghost" to="/borrowedBooks">Borrowed Books</Link>
+        <Link className="btn btn-ghost  text-white dark:text-black" to="/">Home</Link>
+        <Link className="btn btn-ghost  text-white dark:text-black" to="/addBook">Add Book</Link>
+        <Link className="btn btn-ghost  text-white dark:text-black" to="/addCategory">Add Category</Link>
+        <Link className="btn btn-ghost  text-white dark:text-black" to="/allBooks">All Books</Link>
+        <Link className="btn btn-ghost  text-white dark:text-black" to="/borrowedBooks">Borrowed Books</Link>
         {
             !user &&
             <>
@@ -26,7 +35,7 @@ const Navbar = () => {
     }
     return (
         <div>
-            <div className="navbar bg-base-100">
+            <div className="bg-black dark:bg-white  sticky top-0 z-50 navbar">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -39,7 +48,7 @@ const Navbar = () => {
                     <Link to='/'>
                         <img className="w-16" src="https://i.ibb.co/2jpm3y2/booklogo2.png" alt="" />
                     </Link>
-                    <Link to="/"><h2 className="text-base md:text-xl text-black font-bold">Book Shelf</h2></Link>
+                    <Link to="/"><h2 className="text-base md:text-xl  text-white dark:text-black font-bold">Book Shelf</h2></Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
@@ -50,15 +59,15 @@ const Navbar = () => {
                     {user &&
                         <>
                             <img className="w-10 mr-2" src={user?.photoURL} alt="" />
-                            <span className="mr-2 text-black">{user?.displayName}</span>
-                            <Link onClick={handleLogout} className="btn btn-primary bg-[#2c2c2c91] bg-orange-500 dark:text-black border-none rounded-none text-white" >Logout</Link>
+                            <span className="mr-2  text-white dark:text-black">{user?.displayName}</span>
+                            <Link onClick={handleLogout} className="btn bg-[#2c2c2c91] bg-orange-500 dark:text-black border-none rounded-none text-white" >Logout</Link>
                         </>
                     }
 
-                    {/* {
+                    {
                         theme == "dark" ? <FiMoon className="cursor-pointer text-3xl mx-2 text-black" onClick={changeTheme} /> :
                             <FiSun className="cursor-pointer text-3xl mx-2 text-white" onClick={changeTheme} />
-                    } */}
+                    }
                 </div>
             </div>
         </div>
