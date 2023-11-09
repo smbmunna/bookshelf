@@ -147,6 +147,7 @@ const UpdateBook = () => {
                     </div> */}
                         <div>
                             {/* <ReactStarsRating onChange={onChange} value={value} />; */}
+                            <label className="block text-gray-600 text-xl">Rating: </label>
                             <Controller
                                 name="rating"
                                 defaultValue={rating}
