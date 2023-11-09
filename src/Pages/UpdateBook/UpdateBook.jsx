@@ -10,11 +10,7 @@ const UpdateBook = () => {
     const book = useLoaderData();
     const { user } = useAuth();
     const { _id, name, image, category, quantity, author, sdescription, rating } = book;
-    //const [category, setCategory] = useState(category)
-    // const handleCategory = (e) => {
-    //     setCategory(e.target.value);
-    // }
-    console.log('rating', rating)
+    
     //loading book categories context
     const { categories } = useContext(BookContext);
     const { control, handleSubmit } = useForm({

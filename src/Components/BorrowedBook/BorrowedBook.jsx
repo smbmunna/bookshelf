@@ -5,7 +5,7 @@ const BorrowedBook = ({ book, setBorrowedBooks, borrowedBooks }) => {
     const { user } = useAuth();
 
     const { _id, bookName, image, bookID, category, borrowingDate, returnDate, quantity } = book;
-    
+
 
 
     // return book
@@ -13,21 +13,13 @@ const BorrowedBook = ({ book, setBorrowedBooks, borrowedBooks }) => {
         axios.delete(`https://bookshelf-server-henna.vercel.app/delete/cart/${email}/${bookID}`)
             .then(res => {
                 if (res.data.deletedCount > 0) {
-                    Swal.fire({
-                        title: "Success!",
-                        text: "Book Returned Successfully!",
-                        icon: "success"
-                    });
                     const remainingBooks = borrowedBooks.filter(borrowedBook => borrowedBook._id !== _id);
                     setBorrowedBooks(remainingBooks);
 
-                    //increase quantity
-                    
+                    //increase quantity                    
                     axios.patch(`https://bookshelf-server-henna.vercel.app/updateStock/return-book/${bookID}`, {
-                        //quantity: quantity + 1
                     })
                         .then(res2 => {
-                            console.log(res2);
                             //show alert
                             Swal.fire({
                                 title: "Good job!",
@@ -53,8 +45,7 @@ const BorrowedBook = ({ book, setBorrowedBooks, borrowedBooks }) => {
                 <p className='text-lg'><span className='font-bold'>Category:</span> {category}</p>
                 <p className='text-lg'><span className='font-bold'>Borrow Date:</span>  {borrowingDate}</p>
                 <p className='text-lg'><span className='font-bold'>Return Date:</span>  {returnDate}</p>
-                <div className="card-actions">
-                    {/* <Link to={`/book/${_id}`} className="btn btn-primary">Return</Link> */}
+                <div className="card-actions">                    
                     <button onClick={() => handleReturn(user.email, bookID)} className="btn text-white rounded-none bg-orange-500">Return</button>
                 </div>
             </div>

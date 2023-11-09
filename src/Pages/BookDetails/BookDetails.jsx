@@ -1,9 +1,11 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import useAuth from '../../Hooks/useAuth';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import StarRatings from 'react-star-ratings';
+
+
 const BookDetails = () => {
     const book = useLoaderData();
     //loading user from context
@@ -13,7 +15,6 @@ const BookDetails = () => {
     const [openModal, setOpenModal] = useState(false);
     //get the current date
     const currentDate = new Date().toISOString().split('T')[0];
-    //console.log(currentDate);
 
     //setting previous borrowed books in a state
     const [previousBorrowedBooks, setPreviousBorrowedBooks] = useState([]);
@@ -23,6 +24,8 @@ const BookDetails = () => {
             .then(res => setPreviousBorrowedBooks(res.data))
     }, [])
 
+    //For redirecting user after borrowing book
+    const navigate = useNavigate();
 
     const handleAddToCart = (e) => {
         //getting form data
@@ -32,8 +35,6 @@ const BookDetails = () => {
         const returnDate = form.return_date.value;
         const borrowingDate = form.borrowing_date.value;
         const borrower = form.name.value;
-
-        console.log(borrowingDate);
 
         //check if his previousborrowed books has this book
         let bookMatched = false;
@@ -49,6 +50,7 @@ const BookDetails = () => {
                 title: "Oops...",
                 text: "Looks like you have already borrowed this book!"
             });
+            setOpenModal(false);
             return;
         }
         setOpenModal(false);
@@ -78,12 +80,15 @@ const BookDetails = () => {
                 }
             })
             .catch(error => console.log(error))
+
+        //redirect user to borrowed books
+        navigate('/borrowedBooks');
     }
 
     return (
-        // <div className="lg:grid lg:grid-cols-2 w-3/4 lg:w-1/2 mx-auto gap-10 items-center justify-between mt-20">
         <div className="lg:grid lg:grid-cols-2 w-3/4 lg:w-1/2 mx-auto gap-10 items-center justify-between mt-20">
             <div>
+            <h1 className="text-4xl font-bold text-center my-8">Book Details</h1>
                 <img src={image} alt="" />
             </div>
             <div className="text-white dark:text-black">
@@ -100,6 +105,11 @@ const BookDetails = () => {
 
 
                 <p className="my-2 text-xl"><span className="font-bold text-xl mr-2">Short Description:</span>{sdescription} </p>
+                {/* no stock message */}
+                {
+                    quantity < 1 &&
+                    <p className="text-red-600 font-bold text-lg">No Stock Available!</p>
+                }
                 <button
                     className="btn text-white rounded-none bg-orange-500 mt-8"
                     disabled={quantity == 0 ? true : false}
@@ -113,10 +123,8 @@ const BookDetails = () => {
                 <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle" open={openModal}>
                     <div className="modal-box">
                         <h3 className="font-bold text-lg  text-black">Please Enter the Following Information</h3>
-                        {/* <p className="py-4">Press ESC key or click the button below to close</p> */}
                         <div className="modal-action">
                             <form onSubmit={handleAddToCart} >
-                                {/* if there is a button in form, it will close the modal */}
                                 <div>
                                     <input defaultValue={user?.displayName} className="input input-bordered text-black" required type="text" name="name" placeholder="Full Name" />
                                     <input defaultValue={user?.email} className="input input-bordered  text-black" required type="email" name="email" placeholder="Email" />
