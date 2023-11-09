@@ -6,7 +6,7 @@ const AddCategory = () => {
     const onSubmit = (data) => {
         axios({
             method: 'post',
-            url: 'https://bookshelf-server-henna.vercel.app/addCategory', 
+            url: 'https://bookshelfserver-brown.vercel.app/addCategory', 
             data: data
         })
     }

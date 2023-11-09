@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
             setLoading(false);
             if(currentUser){                
                 const loggedInUser= {email: currentUser?.email};
-                axios.post('https://bookshelf-server-henna.vercel.app/jwt', loggedInUser, {
+                axios.post('https://bookshelfserver-brown.vercel.app/jwt', loggedInUser, {
                     withCredentials: true
                 })
                 .then(res=>{
@@ -30,7 +30,7 @@ const AuthProvider = ({ children }) => {
                 console.log(currentUser);
                 
            }else{
-            axios.post('https://bookshelf-server-henna.vercel.app/logout', loggedInUser, {
+            axios.post('https://bookshelfserver-brown.vercel.app/logout', loggedInUser, {
                 withCredentials: true
             })
             .then(res=>{

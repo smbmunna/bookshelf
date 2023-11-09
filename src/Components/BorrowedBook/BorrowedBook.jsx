@@ -10,14 +10,14 @@ const BorrowedBook = ({ book, setBorrowedBooks, borrowedBooks }) => {
 
     // return book
     const handleReturn = (email, bookID) => {
-        axios.delete(`https://bookshelf-server-henna.vercel.app/delete/cart/${email}/${bookID}`)
+        axios.delete(`https://bookshelfserver-brown.vercel.app/delete/cart/${email}/${bookID}`)
             .then(res => {
                 if (res.data.deletedCount > 0) {
                     const remainingBooks = borrowedBooks.filter(borrowedBook => borrowedBook._id !== _id);
                     setBorrowedBooks(remainingBooks);
 
                     //increase quantity                    
-                    axios.patch(`https://bookshelf-server-henna.vercel.app/updateStock/return-book/${bookID}`, {
+                    axios.patch(`https://bookshelfserver-brown.vercel.app/updateStock/return-book/${bookID}`, {
                     })
                         .then(res2 => {
                             //show alert

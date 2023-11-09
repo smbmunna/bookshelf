@@ -20,7 +20,7 @@ const BookDetails = () => {
     const [previousBorrowedBooks, setPreviousBorrowedBooks] = useState([]);
     //check cart for the book (if book already exists or not)
     useEffect(() => {
-        axios.get(`https://bookshelf-server-henna.vercel.app/borrowedBooks?email=${user.email}`)
+        axios.get(`https://bookshelfserver-brown.vercel.app/borrowedBooks?email=${user.email}`)
             .then(res => setPreviousBorrowedBooks(res.data))
     }, [])
 
@@ -55,7 +55,7 @@ const BookDetails = () => {
         }
         setOpenModal(false);
 
-        axios.post('https://bookshelf-server-henna.vercel.app/addToCart', {
+        axios.post('https://bookshelfserver-brown.vercel.app/addToCart', {
             bookName: name,
             email,
             bookID: _id,
@@ -68,7 +68,7 @@ const BookDetails = () => {
         })
             .then(res => {
                 if (res.data.insertedId) {
-                    axios.patch(`https://bookshelf-server-henna.vercel.app/updateStock/${_id}`, {
+                    axios.patch(`https://bookshelfserver-brown.vercel.app/updateStock/${_id}`, {
                         quantity: quantity - 1
                     })
                     Swal.fire({

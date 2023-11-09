@@ -6,7 +6,7 @@ const BorrowedBooks = () => {
     const { user } = useAuth();
     //load email wise booked books
     useEffect(() => {
-        fetch(`https://bookshelf-server-henna.vercel.app/borrowedBooks?email=${user?.email}`)
+        fetch(`https://bookshelfserver-brown.vercel.app/borrowedBooks?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setBorrowedBooks(data));
     }, [])

@@ -20,7 +20,7 @@ const UpdateBook = () => {
     });
 
     const onSubmit = data => {
-        axios.put(`https://bookshelf-server-henna.vercel.app/updateBook/${_id}/${user?.email}`, data, {withCredentials: true})
+        axios.put(`https://bookshelfserver-brown.vercel.app/updateBook/${_id}/${user?.email}`, data, {withCredentials: true})
             .then(res => {
                 if (res.data.modifiedCount > 0) {
                     Swal.fire({

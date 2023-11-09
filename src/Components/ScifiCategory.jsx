@@ -7,7 +7,7 @@ const ScifiCategory = () => {
     const [scifi, setScifi] = useState([]);
     const category = 'Science Fiction';
     useEffect(() => {
-        axios(`https://bookshelf-server-henna.vercel.app/books/category/${category}`)
+        axios(`https://bookshelfserver-brown.vercel.app/books/category/${category}`)
             .then(res => {
                 setScifi(res.data);
             })
