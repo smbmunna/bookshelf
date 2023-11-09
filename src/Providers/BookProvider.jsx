@@ -5,12 +5,6 @@ export const BookContext = createContext();
 
 const BookProvider = ({ children }) => {
     const [categories, setCategories] = useState([]);
-    //load all categories
-    // useEffect(()=>{
-    //     axios('https://bookshelfserver-brown.vercel.app/categories')
-    //     .then(res=>setCategories(res.data))
-    // },[])
-
     useEffect(() => {
         setTimeout(() => {
             axios('https://bookshelfserver-brown.vercel.app/categories')
