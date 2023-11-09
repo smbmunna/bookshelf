@@ -16,7 +16,7 @@ const Navbar = () => {
     const links = <>
         <Link className="btn btn-ghost  text-white dark:text-black" to="/">Home</Link>
         <Link className="btn btn-ghost  text-white dark:text-black" to="/addBook">Add Book</Link>
-        <Link className="btn btn-ghost  text-white dark:text-black" to="/addCategory">Add Category</Link>
+        {/* <Link className="btn btn-ghost  text-white dark:text-black" to="/addCategory">Add Category</Link> */}
         <Link className="btn btn-ghost  text-white dark:text-black" to="/allBooks">All Books</Link>
         <Link className="btn btn-ghost  text-white dark:text-black" to="/borrowedBooks">Borrowed Books</Link>
         {

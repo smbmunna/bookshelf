@@ -88,7 +88,7 @@ const BookDetails = () => {
     return (
         <div className="lg:grid lg:grid-cols-2 w-3/4 lg:w-1/2 mx-auto gap-10 items-center justify-between mt-20">
             <div>
-            <h1 className="text-4xl font-bold text-center my-8">Book Details</h1>
+            <h1 className="text-4xl font-bold text-center my-8 text-white dark:text-black">Book Details</h1>
                 <img src={image} alt="" />
             </div>
             <div className="text-white dark:text-black">

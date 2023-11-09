@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 import { useState } from 'react';
 
@@ -8,6 +8,8 @@ const Registration = () => {
 
     //state for login error
     const [regError, setRegError] = useState('');
+//for redirecting
+    const navigate= useNavigate();
 
     const handleRegistration = event => {
         event.preventDefault();
@@ -16,6 +18,7 @@ const Registration = () => {
         const email = form.email.value;
         const password = form.password.value;
         const photo = form.photo.value;
+        
         
         //Resetting Reg error 
         setRegError('');
@@ -42,6 +45,7 @@ const Registration = () => {
                             //  console.log(result.user.displayName, result.user.photoURL);
                             setUser(result.user);
                             //console.log(user);
+                            navigate('/login');
                         })
                         .catch(error => {
                             console.log(error.message);
@@ -51,6 +55,7 @@ const Registration = () => {
             .catch(error => {
                 console.log(error.message);
             })
+
 
     }
     return (
