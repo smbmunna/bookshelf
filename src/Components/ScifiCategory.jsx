@@ -7,10 +7,12 @@ const ScifiCategory = () => {
     const [scifi, setScifi] = useState([]);
     const category = 'Science Fiction';
     useEffect(() => {
-        axios(`https://bookshelfserver-brown.vercel.app/books/category/${category}`)
+        setTimeout(() => {
+            axios(`https://bookshelfserver-brown.vercel.app/books/category/${category}`)
             .then(res => {
                 setScifi(res.data);
             })
+        }, "2000");
     }, [])
     return (
         <div className="my-16">

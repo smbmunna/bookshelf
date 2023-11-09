@@ -6,9 +6,16 @@ const BorrowedBooks = () => {
     const { user } = useAuth();
     //load email wise booked books
     useEffect(() => {
-        fetch(`https://bookshelfserver-brown.vercel.app/borrowedBooks?email=${user?.email}`)
+        // fetch(`https://bookshelfserver-brown.vercel.app/borrowedBooks?email=${user?.email}`)
+        //     .then(res => res.json())
+        //     .then(data => setBorrowedBooks(data));
+
+        setTimeout(() => {
+             fetch(`https://bookshelfserver-brown.vercel.app/borrowedBooks?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setBorrowedBooks(data));
+        }, "2000");
+
     }, [])
     
     return (
