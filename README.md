@@ -1,10 +1,8 @@
 # Book Shelf
-**[ Client Github Link](https://github.com/smbmunna/bookshelf)**
-<br>
+**[ Client Github Link](https://github.com/smbmunna/bookshelf)** ||
 **[ Client Live Link](https://bookshelf-e4b68.web.app/)**
 
-**[ Server Github Link](https://github.com/smbmunna/bookshelf-server)**
-<br>
+**[ Server Github Link](https://github.com/smbmunna/bookshelf-server)** ||
 **[ Server Live Link](https://bookshelfserver-brown.vercel.app/)**
 
 ##  Project Overview: 
