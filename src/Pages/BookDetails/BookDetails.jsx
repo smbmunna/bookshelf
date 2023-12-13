@@ -1,10 +1,10 @@
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import useAuth from '../../Hooks/useAuth';
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import StarRatings from 'react-star-ratings';
-
+import emailjs from '@emailjs/browser';
 
 const BookDetails = () => {
     const book = useLoaderData();
@@ -35,6 +35,8 @@ const BookDetails = () => {
         const returnDate = form.return_date.value;
         const borrowingDate = form.borrowing_date.value;
         const borrower = form.name.value;
+
+
 
         //check if his previousborrowed books has this book
         let bookMatched = false;
@@ -81,6 +83,33 @@ const BookDetails = () => {
             })
             .catch(error => console.log(error))
 
+        //send email confirmation
+        const templateParams = {
+            to_email: email,
+            subject: 'Book Rent Confirmation',
+            body: 'You have successfully rented the book',
+        };
+
+        emailjs.send(
+            'service_8z2fi7m',
+            'template_xczwbz6',
+            templateParams,
+            'tMb2U4XqyPnnM1EZ2'
+        )
+            .then(response => {
+                if (response?.status) {
+                    Swal.fire({
+                        title: "Email Sent!",
+                        text: "Confirmation mail sent.",
+                        icon: "success"
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error sending email', error);
+            });
+
+
         //redirect user to borrowed books
         navigate('/borrowedBooks');
     }
@@ -88,7 +117,7 @@ const BookDetails = () => {
     return (
         <div className="lg:grid lg:grid-cols-2 w-3/4 lg:w-1/2 mx-auto gap-10 items-center justify-between mt-20">
             <div>
-            <h1 className="text-4xl font-bold text-center my-8 text-white dark:text-black">Book Details</h1>
+                <h1 className="text-4xl font-bold text-center my-8 text-white dark:text-black">Book Details</h1>
                 <img src={image} alt="" />
             </div>
             <div className="text-white dark:text-black">
