@@ -1,4 +1,4 @@
-import AudioBook from "../../Components/AudioBook";
+import AudioBook from "../../Components/AudioBook/AudioBook";
 import Banner from "../../Components/Banner/Banner";
 import Categories from "../../Components/Categories/Categories";
 import FindUs from "../../Components/FindUs/FindUs";
